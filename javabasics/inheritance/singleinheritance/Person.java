@@ -2,7 +2,11 @@ package inheritance.singleinheritance;
 
 public class Person {
   private int age;
-  private String name;
+  String name;
+
+  public Person() {
+    System.out.println("Persons is callerd");
+  }
 
   public void setPersonDetail(int age, String name) {
     this.age = age;
