@@ -46,6 +46,25 @@ class SignlyLinkedList {
       System.out.printf("%d -> ", temp.data);
       temp = temp.next;
     }
+    System.out.print("null");
+  }
+
+  public void insertAfter(int newData, int targetData) {
+    Node temp = head;
+    boolean isFound = false;
+    while (temp != null) {
+      if (temp.data == targetData) {
+        Node newNode = new Node(newData);
+        newNode.next = temp.next;
+        temp.next = newNode;
+        isFound = true;
+        return;
+      }
+      temp = temp.next;
+    }
+    if (!isFound) {
+      System.out.printf("%d is not found in linked list", targetData);
+    }
   }
 }
 
@@ -54,6 +73,8 @@ public class InsertLinkedList {
     SignlyLinkedList s = new SignlyLinkedList();
     s.insertNode(10);
     s.insertNode(20);
+    s.insertNode(30);
+    s.insertAfter(25, 20);
     s.displayList();
   }
 }
