@@ -10,7 +10,7 @@ class Node {
   }
 }
 
-class SignlyLinkedList {
+class LinkedList {
   private Node head;
 
   public void insertNode(int data) {
@@ -66,15 +66,40 @@ class SignlyLinkedList {
       System.out.printf("%d is not found in linked list", targetData);
     }
   }
+
+  public void deleteLinkedList(int data) {
+    if (head == null) {
+      System.out.println("List is Empty");
+      return;
+    }
+    if (head.data == data) {
+      head = head.next;
+      return;
+    }
+    Node prev = head;
+    Node temp = head.next;
+    while (temp != null && temp.data != data) {
+      prev = temp;
+      temp = temp.next;
+    }
+    if (temp == null) {
+      System.out.printf("\n %d not found", data);
+      return;
+    }
+
+    prev.next = temp.next;
+  }
 }
 
-public class InsertLinkedList {
+public class SinglyLinkedList {
   public static void main(String[] args) {
-    SignlyLinkedList s = new SignlyLinkedList();
+    LinkedList s = new LinkedList();
     s.insertNode(10);
-    s.insertNode(20);
-    s.insertNode(30);
-    s.insertAfter(25, 20);
+    // s.insertNode(20);
+    // s.insertNode(30);
+    // s.insertAfter(25, 0);
+    s.displayList();
+    s.deleteLinkedList(10);
     s.displayList();
   }
 }
