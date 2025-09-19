@@ -2,107 +2,148 @@ package projects.librarymanagement;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
+import java.util.Scanner;
 
 public class Library {
-  static List<Book> b = new ArrayList<Book>();
+  private static List<Book> books = new ArrayList<Book>();
+  private static List<Member> members = new ArrayList<Member>();
+  private static List<Librarian> librariance = new ArrayList<Librarian>();
+  private static int personId = 0;
+  private static int bookId = 0;
+
+  public static boolean registerLibrarian(Scanner sc) {
+    System.out.print("Enter a Name of Librarian := ");
+    String personName = sc.next();
+    sc.nextLine();
+    System.out.print("\nEnter a Contact Number of Librarian := ");
+    String personContactNumber = sc.nextLine();
+    System.out.print("\nEnter a Username of Librarian := ");
+    String personUsername = sc.nextLine();
+    System.out.print("\nEnter a Password of Librarian := ");
+    String personPassword = sc.nextLine();
+    Librarian l = new Librarian(personName, personContactNumber, ++personId, personUsername,
+        personPassword);
+    librariance.add(l);
+    return true;
+  }
+
+  public static boolean registerMember(Scanner sc) {
+    System.out.print("Enter a Name of Member := ");
+    String personName = sc.next();
+    sc.nextLine();
+    System.err.print("\nEnter a Contact Number of Member := ");
+    String personContactNumber = sc.nextLine();
+    System.out.print("\nEnter a Username of Librarian := ");
+    String personUsername = sc.nextLine();
+    System.out.print("\nEnter a Password of Librarian := ");
+    String personPassword = sc.nextLine();
+    Member member = new Member(++personId, personName, personContactNumber, personUsername, personPassword);
+    members.add(member);
+    return true;
+  }
+
+  public static void librarianMenu() {
+    while (true) {
+      System.out.println("========= Librarian Menu =========\n" + //
+          "1. Add Book\n" + //
+          "2. Remove Book\n" + //
+          "3. Search Book\n" + //
+          "4. View All Books\n" + //
+          "5. Register Member\n" + //
+          "6. Logout\n" + //
+          "==================================\n" + //
+          "Enter choice:\n" + //
+          "");
+      Scanner sc = new Scanner(System.in);
+      int n = sc.nextInt();
+
+      switch (n) {
+        case 1:
+          System.out.print("Book title := ");
+          String bookTitle = sc.nextLine();
+          sc.nextLine();
+          System.out.print("Book Author := ");
+          String bookAuthor = sc.nextLine();
+          sc.nextLine();
+          System.out.print("Book Category := ");
+          String bookCategory = sc.nextLine();
+          System.out.print("Book Total Copies := ");
+          int bookTotalCopies = sc.nextInt();
+
+          Book b = new Book(bookId++, bookTitle, bookAuthor, bookCategory, bookTotalCopies);
+          books.add(b);
+          System.out.println("Book Added Successfully");
+          break;
+        case 0:
+          System.out.println("Returning to Back Main Menu...");
+
+          return;
+        default:
+          System.out.println("invaid Input !!!");
+          break;
+      }
+
+    }
+
+  }
 
   public static void main(String[] args) {
-    // b.add(new EBook(101, "Maths", "gagan", 23.30));
-    // b.add(new PrintBook(102, "Sciendce", "Alakh", 100));
-    // b.add(new EBook(103, "Marathid", "Gitanjali", 23.30));
-    // b.add(new PrintBook(1014, "English", "Aman", 200));
+    while (true) {
+      try {
 
-    System.out.println("1. Show all books\n2. Search Book By ID\n3. Search Book By Name\n4. add book");
-    Scanner sc = new Scanner(System.in);
-    int option = sc.nextInt();
-    switch (option) {
-      case 1:
-        showAllBooks();
-        break;
-      case 2:
-
-        System.out.println("enter a book ID :=> ");
-        int id = sc.nextInt();
-        findBookById(id);
-        break;
-      case 3:
-
-        System.out.println("enter a book Title :=> ");
-        String title = sc.next();
-        findBookByTitle(title.trim());
-        break;
-      case 4:
-        System.out.print("Enter a book title := ");
-        String bookTitle = sc.nextLine();
-        while (bookTitle.length() == 0) {
-          System.out.print("Enter a book title := ");
-          bookTitle = sc.nextLine();
-        }
-        sc.nextLine();
-        System.out.print("Enter a book author := ");
-        String bookAuthor = sc.nextLine();
-        while (bookAuthor.length() == 0) {
-          System.out.print("Enter a book title := ");
-          bookTitle = sc.nextLine();
-        }
-        System.out.println("Choose Book type\n1. Ebook\n2. Paper Book");
-        System.out.print("enter Option := ");
-        int type = sc.nextInt();
-        switch (type) {
+        System.out.println("\n\nWelcome to my Library");
+        System.out.println("\n1. Register Librarian\\n" + //
+            "\n3. show librarians\n4. Login as Librarian\n5. Login as a memeber");
+        Scanner sc = new Scanner(System.in);
+        int choice = sc.nextInt();
+        switch (choice) {
           case 1:
-            System.out.print("Enter a book Size := ");
-            Double bookSizDouble = sc.nextDouble();
-            b.add(new EBook(Math.round(1), bookTitle, bookAuthor, bookSizDouble));
-            showAllBooks();
+            if (registerLibrarian(sc)) {
+              System.out.println("Librarian Add Successfully!!");
+            } else {
+              System.out.println("Failed To Add Librarian");
+            }
             break;
           case 2:
-            System.out.print("Enter a book Pages := ");
-            int bookPages = sc.nextInt();
-            b.add(new PrintBook(Math.round(1), bookTitle, bookAuthor, bookPages));
-            showAllBooks();
+            System.out.println("Libririan Details");
+            for (Librarian lib : librariance) {
+              System.out.println("--------------------------------");
+              lib.displayDetails();
+            }
+            break;
+          case 3:
+            System.out.println("\nEnter Username := ");
+            String username = sc.nextLine();
+            sc.nextLine();
+            System.out.println("\nEnter Password := ");
+            String password = sc.nextLine();
+            if (librariance.size() == 0) {
+              System.out.println("There is No any Librarian Regsiter, Please Register as a librarian");
+            }
+            System.out.println(username + "" + password);
+            for (Librarian l : librariance) {
+              if (username.equals(l.username) && password.equals(l.password)) {
+                System.out.println("Login Successfully\n!!!");
+                librarianMenu();
+              }
+            }
+            System.out.println("is back");
+            break;
+          case 4:
+            System.out.println("Libririan Details");
+            for (Librarian lib : librariance) {
+              System.out.println("--------------------------------");
+              lib.displayDetails();
+            }
             break;
           default:
-            System.out.println("Invalid Option of Book type Do you want to Continue type y else n");
-            char c = sc.next().toLowerCase().charAt(0);
-            if (c == 'y') {
-              System.out.println("Choose Book type\n1. Ebook\n2. Paper Book");
-              System.out.print("enter Option := ");
-              type = sc.nextInt();
-            } else {
-              Library.main(args);
-            }
+            System.out.println("invalid Input!!!");
+            break;
         }
-
-        break;
-      default:
-        System.out.println("Invalid Option");
-        Library.main(args);
-    }
-  }
-
-  public static void showAllBooks() {
-    System.out.println("total Book is :=> " + b.size());
-    for (Book book : b) {
-      book.displayBookDetails();
-    }
-  }
-
-  public static void findBookById(int id) {
-    for (Book book : b) {
-      if (book.getBookId() == id) {
-        book.displayBookDetails();
-        break;
+      } catch (Exception e) {
+        System.out.println(e);
       }
     }
-  }
 
-  public static void findBookByTitle(String title) {
-    for (Book book : b) {
-      if (book.getBookTitle().equalsIgnoreCase(title)) {
-        book.displayBookDetails();
-        break;
-      }
-    }
   }
 }
