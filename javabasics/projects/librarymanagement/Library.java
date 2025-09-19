@@ -59,20 +59,44 @@ public class Library {
 
       switch (n) {
         case 1:
+          sc.nextLine();
           System.out.print("Book title := ");
           String bookTitle = sc.nextLine();
-          sc.nextLine();
           System.out.print("Book Author := ");
           String bookAuthor = sc.nextLine();
-          sc.nextLine();
+
           System.out.print("Book Category := ");
           String bookCategory = sc.nextLine();
+
           System.out.print("Book Total Copies := ");
           int bookTotalCopies = sc.nextInt();
 
           Book b = new Book(bookId++, bookTitle, bookAuthor, bookCategory, bookTotalCopies);
           books.add(b);
           System.out.println("Book Added Successfully");
+          break;
+        case 2:
+          System.out.println("*********** Books ************");
+          for (Book book : books) {
+            book.displayBookDetails();
+          }
+          System.out.println("*******************************");
+          break;
+        case 3:
+          System.out.print("Enter a book id := ");
+          int bookid = sc.nextInt();
+          books.remove(bookid);
+          break;
+        case 4:
+          sc.nextLine();
+          System.out.print("Enter a name to search book := ");
+          String bookName = sc.nextLine();
+          books.forEach(book -> {
+            if (bookName.equals(book.title) || bookName.equals(book.category) || bookName.equals(book.author)) {
+              book.displayBookDetails();
+              return;
+            }
+          });
           break;
         case 0:
           System.out.println("Returning to Back Main Menu...");
@@ -112,22 +136,27 @@ public class Library {
             }
             break;
           case 3:
-            System.out.println("\nEnter Username := ");
-            String username = sc.nextLine();
             sc.nextLine();
-            System.out.println("\nEnter Password := ");
+            System.out.print("Enter Username := ");
+            String username = sc.nextLine();
+            System.out.print("Enter Password := ");
             String password = sc.nextLine();
             if (librariance.size() == 0) {
               System.out.println("There is No any Librarian Regsiter, Please Register as a librarian");
+              break;
             }
-            System.out.println(username + "" + password);
+            boolean isUserFound = false;
             for (Librarian l : librariance) {
               if (username.equals(l.username) && password.equals(l.password)) {
                 System.out.println("Login Successfully\n!!!");
+                isUserFound = true;
                 librarianMenu();
               }
             }
-            System.out.println("is back");
+            if (!isUserFound) {
+              System.out.println("Invalid Username and Password");
+              break;
+            }
             break;
           case 4:
             System.out.println("Libririan Details");

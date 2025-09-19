@@ -3,14 +3,14 @@ package projects.librarymanagement;
 public class Book {
   private int id = 1;
 
-  private String title;
+  String title;
 
-  private String author;
+  String author;
 
-  private String category;
+  String category;
 
   private boolean isAvailable = false;
-  private int totalCopies; // total available in library
+  int totalCopies; // total available in library
 
   public Book(int id, String title, String author, String category, int totalCopies) {
     this.id = id;
@@ -23,8 +23,12 @@ public class Book {
   }
 
   public void displayBookDetails() {
-    System.out.printf("Book Name := %s\nBook Author := %s \nBook Category : %s\n Availablity%b", this.title,
+    System.out.println("================================================");
+    System.out.printf(
+        "\nBook id := %d\nBook Name := %s\nBook Author := %s \nBook Category := %s\n Availablity := %b\ntotal Copies := %d\n",
+        this.id, this.title,
         this.author,
-        this.category, this.isAvailable);
+        this.category, this.isAvailable, this.totalCopies);
+    System.out.println("================================================");
   }
 }
