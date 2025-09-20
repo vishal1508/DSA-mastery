@@ -10,6 +10,7 @@ public class Library {
   private static List<Librarian> librariance = new ArrayList<Librarian>();
   private static int personId = 0;
   private static int bookId = 0;
+  private static int memberId = 0;
 
   public static boolean registerLibrarian(Scanner sc) {
     System.out.print("Enter a Name of Librarian := ");
@@ -50,7 +51,7 @@ public class Library {
           "3. Search Book\n" + //
           "4. View All Books\n" + //
           "5. Register Member\n" + //
-          "6. Logout\n" + //
+          "0. Logout\n" + //
           "==================================\n" + //
           "Enter choice:\n" + //
           "");
@@ -75,19 +76,13 @@ public class Library {
           books.add(b);
           System.out.println("Book Added Successfully");
           break;
+
         case 2:
-          System.out.println("*********** Books ************");
-          for (Book book : books) {
-            book.displayBookDetails();
-          }
-          System.out.println("*******************************");
-          break;
-        case 3:
           System.out.print("Enter a book id := ");
           int bookid = sc.nextInt();
           books.remove(bookid);
           break;
-        case 4:
+        case 3:
           sc.nextLine();
           System.out.print("Enter a name to search book := ");
           String bookName = sc.nextLine();
@@ -98,6 +93,30 @@ public class Library {
             }
           });
           break;
+        case 4:
+          System.out.println("*********** Books ************");
+          for (Book book : books) {
+            book.displayBookDetails();
+          }
+          System.out.println("*******************************");
+          break;
+
+        case 5:
+          sc.nextLine();
+          System.out.print("Enter a Memeber name := ");
+          String memberName = sc.nextLine();
+          System.out.print("Enter a Memeber Contact Number := ");
+          String memberContactNumber = sc.nextLine();
+          System.out.print("Enter a Memeber Username := ");
+          String memberUsername = sc.nextLine();
+          System.out.print("Enter a Memeber password := ");
+          String memberPassword = sc.nextLine();
+
+          Member m = new Member(memberId++, memberName, memberContactNumber, memberUsername, memberPassword);
+          members.add(m);
+          System.out.println("Member Successfully created");
+          break;
+
         case 0:
           System.out.println("Returning to Back Main Menu...");
 
@@ -111,13 +130,47 @@ public class Library {
 
   }
 
+  public static void memberMenu(int memberId) {
+    Member currentMember = members.get(memberId);
+
+    while (true) {
+      System.out.println("========= Librarian Menu =========\n" + //
+          "1. Borrow Book\n" + //
+          "2. Return Book\n" + //
+          "3. view all Book\n" + //
+          "0. Logout\n" + //
+          "==================================\n" + //
+          "Enter choice:\n" + //
+          "");
+      Scanner sc = new Scanner(System.in);
+      int n = sc.nextInt();
+      switch (n) {
+        case 1:
+          System.err.print("if u want to any book to borrrow please enter bookid := ");
+          int bookId = sc.nextInt();
+          currentMember.borrowBook(books.get(bookId));
+          System.out.println("Book Successfuly Borrowed");
+          break;
+        case 3:
+          List<Book> borrowBooks = currentMember.getBorrowBooks();
+          for (Book book : borrowBooks) {
+            book.displayBookDetails();
+          }
+          break;
+
+        default:
+          throw new AssertionError();
+      }
+    }
+  }
+
   public static void main(String[] args) {
     while (true) {
       try {
 
         System.out.println("\n\nWelcome to my Library");
-        System.out.println("\n1. Register Librarian\\n" + //
-            "\n3. show librarians\n4. Login as Librarian\n5. Login as a memeber");
+        System.out.println("\n1. Register Librarian\n" + //
+            "\n2. show librarians\n3. Login as Librarian\n4. Login as a memeber");
         Scanner sc = new Scanner(System.in);
         int choice = sc.nextInt();
         switch (choice) {
@@ -158,13 +211,31 @@ public class Library {
               break;
             }
             break;
+
           case 4:
-            System.out.println("Libririan Details");
-            for (Librarian lib : librariance) {
-              System.out.println("--------------------------------");
-              lib.displayDetails();
+            sc.nextLine();
+            System.out.print("Enter Username := ");
+            String memberUsername = sc.nextLine();
+            System.out.print("Enter Password := ");
+            String memberPassword = sc.nextLine();
+            if (librariance.size() == 0) {
+              System.out.println("There is No any Librarian Regsiter, Please Register as a librarian");
+              break;
+            }
+            boolean isMemberFound = false;
+            for (Member m : members) {
+              if (memberUsername.equals(m.username) && memberPassword.equals(m.password)) {
+                System.out.println("Login Successfully\n!!!");
+                isMemberFound = true;
+                memberMenu(m.getMemberId());
+              }
+            }
+            if (!isMemberFound) {
+              System.out.println("Invalid Username and Password");
+              break;
             }
             break;
+
           default:
             System.out.println("invalid Input!!!");
             break;
