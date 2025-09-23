@@ -146,18 +146,32 @@ public class Library {
       int n = sc.nextInt();
       switch (n) {
         case 1:
+          // if (currentMember.getBorrowBooks().size() == 0) {
+          // System.out.println("You dont have any book borrow");
+          // return;
+          // }
+          if (currentMember.isBookExist(bookId)) {
+            System.out.println("Book is Already Borrow, you cant borrow Same Book");
+            return;
+          }
           System.err.print("if u want to any book to borrrow please enter bookid := ");
           int bookId = sc.nextInt();
-          currentMember.borrowBook(books.get(bookId));
+
+          Book book = books.get(bookId);
+          BorrowBook borrowBook = new BorrowBook(bookId, book.title, book.author, book.category);
+          book.decreaseQunatity(1);
+          System.out.println("Total Copies := " + book.totalCopies);
+          currentMember.borrowBook(borrowBook);
           System.out.println("Book Successfuly Borrowed");
           break;
         case 3:
-          List<Book> borrowBooks = currentMember.getBorrowBooks();
-          for (Book book : borrowBooks) {
-            book.displayBookDetails();
+          List<BorrowBook> borrowBooks = currentMember.getBorrowBooks();
+          for (BorrowBook bok : borrowBooks) {
+            bok.displayBookDetails();
           }
           break;
-
+        case 0:
+          return;
         default:
           throw new AssertionError();
       }

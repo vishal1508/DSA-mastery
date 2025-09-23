@@ -6,7 +6,7 @@ import java.util.List;
 public class Member extends Person {
   private int memberId;
 
-  private List<Book> borrowBooks;
+  private List<BorrowBook> borrowBooks;
 
   public Member(int memberId, String name, String contactNumber, String username, String password) {
     this.memberId = memberId;
@@ -14,17 +14,27 @@ public class Member extends Person {
     this.contactNumber = contactNumber;
     this.username = username;
     this.password = password;
-    this.borrowBooks = new ArrayList<Book>();
+    this.borrowBooks = new ArrayList<BorrowBook>();
   }
 
-  public void borrowBook(Book b) {
+  public void borrowBook(BorrowBook b) {
     borrowBooks.add(b);
   }
 
-  public List<Book> getBorrowBooks() {
-    return this.borrowBooks;
+  public boolean isBookExist(int bookId) {
+
+    if (borrowBooks.get(bookId).getBorrowBookId() == bookId && borrowBooks.size() > 0) {
+      return true;
+    }
+    return false;
   }
 
+  public List<BorrowBook> getBorrowBooks() {
+    return this.borrowBooks;
+  }
+  // public void returnBook(int bookid){
+
+  // }
   public int getMemberId() {
     return this.memberId;
   }

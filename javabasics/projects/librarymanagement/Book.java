@@ -22,6 +22,14 @@ public class Book {
 
   }
 
+  public void decreaseQunatity(int quantity) {
+    this.totalCopies -= quantity;
+  }
+
+  public int getBookId() {
+    return this.id;
+  }
+
   public void displayBookDetails() {
     System.out.println("================================================");
     System.out.printf(
