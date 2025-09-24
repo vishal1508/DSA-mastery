@@ -2,29 +2,37 @@ package projects.librarymanagement;
 
 public class BorrowBook {
   private int borrowBookId;
-  String borrowBookTitle;
-  String borrowBookAuthor;
-  String borrowBookCategory;
+  private String borrowBookTitle;
+  private String borrowBookAuthor;
+  private String borrowBookCategory;
 
-  public BorrowBook(int borrowBookId, String borrowBookTitle, String borrowBookAuthor, String borrowBookCategoy) {
-    this.borrowBookAuthor = borrowBookAuthor;
-    this.borrowBookCategory = borrowBookCategoy;
+  public BorrowBook(int borrowBookId, String borrowBookTitle, String borrowBookAuthor, String borrowBookCategory) {
     this.borrowBookId = borrowBookId;
     this.borrowBookTitle = borrowBookTitle;
+    this.borrowBookAuthor = borrowBookAuthor;
+    this.borrowBookCategory = borrowBookCategory;
   }
 
   public int getBorrowBookId() {
-    return this.borrowBookId;
+    return borrowBookId;
   }
 
-  public void displayBookDetails() {
-    System.out.println("================================================");
-    System.out.printf(
-        "\nBook id := %d\nBook Name := %s\nBook Author := %s \nBook Category := %s\n",
-        this.borrowBookId, this.borrowBookTitle,
-        this.borrowBookAuthor,
-        this.borrowBookCategory);
-    System.out.println("================================================");
+  public String getBorrowBookTitle() {
+    return borrowBookTitle;
   }
 
+  public String getBorrowBookAuthor() {
+    return borrowBookAuthor;
+  }
+
+  public String getBorrowBookCategory() {
+    return borrowBookCategory;
+  }
+
+  @Override
+  public String toString() {
+    return String.format(
+        "Book id: %d, Name: %s, Author: %s, Category: %s",
+        borrowBookId, borrowBookTitle, borrowBookAuthor, borrowBookCategory);
+  }
 }
