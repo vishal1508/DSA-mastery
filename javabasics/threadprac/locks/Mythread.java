@@ -13,7 +13,7 @@ public class Mythread implements Runnable {
 
   @Override
   public void run() {
-    ba.withdrawnAmount(name, amount);
+    ba.withdrawnAmount(amount, name);
   }
 
 }
