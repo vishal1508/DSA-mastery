@@ -65,7 +65,7 @@ public class MiniProject1 {
             log.accept("Total Users :"+(u.size()));
             log.accept("Valid Users :"+validUSer);
             log.accept("Invalid Users :"+invalidUser);
-            log.accept("=== Processing Complete ===\n");
+            log.accept("=== Processing Complete ===");
         };
 
 
