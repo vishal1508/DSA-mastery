@@ -1,7 +1,11 @@
 package collectionframework.streams;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class StreamExamples {
@@ -21,7 +25,29 @@ public class StreamExamples {
 
         // Create Infinte Stream using Iterator
         Stream<Integer> countNumber = Stream.iterate(1,x -> x + 1).limit(100);
-        System.out.println(countNumber.count());
 
+        //Filter method
+        List<Integer> numberList = Arrays.asList(2,4,12,43,23,12,54,32);
+        List<Integer> n  = numberList.stream().filter(nu -> nu % 2 == 0).toList();
+
+        // Map method
+        Stream<String> mapMethod = list.stream().map(x -> x.toUpperCase());
+        System.out.println(mapMethod.collect(Collectors.toList()));
+
+        //Sort method
+        Stream<String> sortMethod = list.stream().sorted((a,b) -> a.compareTo(b));
+        System.out.println(sortMethod.collect(Collectors.toList()));
+
+        //For each method
+        list.stream().forEach(System.out :: println);
+
+        //reduce method
+        Optional<Integer> reduceMethod =  numberList.stream().reduce((a, b) -> a + b);
+        System.out.println(reduceMethod.get());
+
+        // Convert Stream in to Collection or list
+        List<Integer> numList = numberList.stream().toList();
+
+        System.out.println(numList.get(0));
     }
 }
