@@ -15,7 +15,13 @@ public class StreamExamples {
 
         // Create a Stream  using Stream.of
         Stream<String> usingStream = Stream.of("Vishal","Vikas");
-        System.out.println(usingStream);
+
+        // Create Infinite Stream using Generate
+        Stream<Integer> infinteStreamUsingGenerate = Stream.generate( () -> 1).limit(100);
+
+        // Create Infinte Stream using Iterator
+        Stream<Integer> countNumber = Stream.iterate(1,x -> x + 1).limit(100);
+        System.out.println(countNumber.count());
 
     }
 }
