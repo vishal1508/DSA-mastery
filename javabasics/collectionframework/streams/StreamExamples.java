@@ -47,7 +47,17 @@ public class StreamExamples {
 
         // Convert Stream in to Collection or list
         List<Integer> numList = numberList.stream().toList();
-
         System.out.println(numList.get(0));
+
+        // anyMatch method
+        boolean anyMatchExample = numList.stream().anyMatch(x -> x % 2 == 0);
+        System.out.println("is Any Match even number : = "+anyMatchExample);
+        // all match
+       boolean allMatchExample = numList.stream().allMatch(x -> x % 2 == 0);
+        System.out.println("is All Match even number : = "+allMatchExample);
+       // none match
+        boolean noneMatch = numList.stream().noneMatch(x -> x % 2 == 0);
+
+        System.out.println("is None Match even number : = "+noneMatch);
     }
 }
