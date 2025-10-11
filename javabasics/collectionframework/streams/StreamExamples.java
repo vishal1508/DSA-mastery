@@ -27,7 +27,7 @@ public class StreamExamples {
         Stream<Integer> countNumber = Stream.iterate(1,x -> x + 1).limit(100);
 
         //Filter method
-        List<Integer> numberList = Arrays.asList(2,4,12,43,23,12,54,32);
+        List<Integer> numberList = Arrays.asList(1,2,4,12,43,23,12,54,32);
         List<Integer> n  = numberList.stream().filter(nu -> nu % 2 == 0).toList();
 
         // Map method
@@ -59,5 +59,25 @@ public class StreamExamples {
         boolean noneMatch = numList.stream().noneMatch(x -> x % 2 == 0);
 
         System.out.println("is None Match even number : = "+noneMatch);
+
+        //Firstmatch
+        int firstMatch = numList.stream().findFirst().get();
+        System.out.println("Find First := "+firstMatch);
+        int findAnyExample = numList.stream().filter(x -> x % 2 == 0).findAny().get();
+        System.out.println("Find Any := "+findAnyExample);
+
+        //Examples
+        // Filtering and collecting name
+        List<String> CollectName  = list.stream().filter(x -> x.length() < 5).toList();
+        System.out.println(CollectName);
+
+        // Example : Squaring and sorted numbers
+        List<Integer> sortedSquareNumber = numberList.stream().map(x -> x*x).sorted().toList();
+        System.out.println(sortedSquareNumber);
+
+        //Example : Summing Values
+        int sum = numberList.stream().reduce(Integer::sum).get();
+        System.out.println("sum : => "+sum);
+
     }
 }
