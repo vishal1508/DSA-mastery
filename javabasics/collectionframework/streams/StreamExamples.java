@@ -1,5 +1,6 @@
 package collectionframework.streams;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -27,7 +28,7 @@ public class StreamExamples {
         Stream<Integer> countNumber = Stream.iterate(1,x -> x + 1).limit(100);
 
         //Filter method
-        List<Integer> numberList = Arrays.asList(1,2,4,12,43,23,12,54,32);
+        List<Integer> numberList = Arrays.asList(1,2,2,4,4,12,43,23,12,54,32);
         List<Integer> n  = numberList.stream().filter(nu -> nu % 2 == 0).toList();
 
         // Map method
@@ -79,5 +80,24 @@ public class StreamExamples {
         int sum = numberList.stream().reduce(Integer::sum).get();
         System.out.println("sum : => "+sum);
 
+        //Countion Occurence of Character
+        String name = "Hello World";
+        Long charCount = name.chars().filter(x -> x == 'l').count();
+        System.out.println(charCount);
+
+        //skip
+        Stream<Integer> skipNumber = numberList.stream().skip(2);
+        System.out.println(skipNumber.toList());
+
+        //distinct
+        Stream<Integer> distinctNumber = numberList.stream().distinct();
+        System.out.println(distinctNumber.toList());
+        //flatmap
+        List<List<String>> listoflist = Arrays.asList(Arrays.asList("apple","banana"),Arrays.asList("Kiwi","Pinapple"));
+        System.out.println(listoflist.stream().flatMap( f -> f.stream().map(st -> st.toUpperCase())).toList());
+        List<String> str =Arrays.asList("Hello World","India is the Biggest Country");
+        System.out.println(str.stream().flatMap(st -> Arrays.stream(st.split(" "))).map(xt -> xt.toUpperCase()).toList());
+
     }
+
 }
