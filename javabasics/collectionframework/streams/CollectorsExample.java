@@ -47,5 +47,34 @@ public class CollectorsExample {
         System.out.println(names.stream().collect(Collectors.partitioningBy(x -> x.length() > 5)));
         // Mapping
         System.out.println(names.stream().collect(Collectors.mapping(x -> x.toUpperCase(), Collectors.toList())));
+
+        // Examle 1 : Collecting Names by length
+        System.out.println("Grouping name by length := "+names.stream().collect(Collectors.groupingBy(x -> x.length())));
+
+        // Countinh Word Occurences
+        String word = "hello world hello java world";
+        System.out.println("Counting Word Occurences :=> "+ Arrays.stream(word.split(" ")).collect(Collectors.groupingBy(x -> x, Collectors.counting()) ));
+
+        // Pratitioning Even and Odd Numbers
+
+        System.out.println(nums.stream().collect(Collectors.partitioningBy(x -> x%2 == 0)));
+
+        // Summing values  in map
+        Map<String,Integer> hm = new HashMap<>();
+        hm.put("Apple",10);
+        hm.put("Mango",20);
+        hm.put("Banan",40);
+        System.out.println(hm.values());
+        System.out.println(hm.values().stream().collect(Collectors.reducing(Integer::sum)));
+        System.out.println(hm.values().stream().collect(Collectors.summingInt(x -> x)));
+
+
+        // creteing a map From Stream elemnts
+        List<String> sl = Arrays.asList("Apple","Mango");
+        System.out.println(sl.stream().collect(Collectors.toMap(x -> x.toUpperCase() ,x -> x.length())));
+
+        // 6 . using map merge
+        List<String> sli = Arrays.asList("Apple","Apple","Mango");
+        System.out.println(sli.stream().collect(Collectors.toMap(k ->k ,v -> 1, (x,y) -> x+y)));
     }
 }
