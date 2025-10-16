@@ -3,8 +3,11 @@ package collectionframework.streams.assignments;
 import com.sun.source.tree.Tree;
 
 import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class AssignmentIntermediateLevel {
     public static void main(String[] args) {
@@ -46,23 +49,70 @@ public class AssignmentIntermediateLevel {
 
         //Group a list of people by their age using Collectors.groupingBy().
         Map<Integer, List<String>> peopleByAgeTreeMap =
-                Arrays.asList(new Person(23,"Vishal"),new Person(23,"Akash"),new Person(22,"Kajal"))
+                Arrays.asList(new Person(1,23,"Vishal",23234.23),new Person(2,23,"Akash",23434.32),new Person(3,22,"Kajal",234.34))
                 .stream()
                 .collect(Collectors.groupingBy(Person::getAge, Collectors.mapping(Person::getName, Collectors.toList())));
                 System.out.println(peopleByAgeTreeMap);
 
                 //Output : {22=[Kajal], 23=[Vishal, Akash]}
 
+
+        // Partition a list of integers into even and odd numbers using partitioningBy().
+        // Input : [1,2,3,4,5,6,6,7]
+        System.out.println(Arrays.asList(1,2,3,4,5,6,6,7).stream().collect(Collectors.partitioningBy(x -> x % 2 == 0)));
+        // Output :     {false=[1, 3, 5, 7], true=[2, 4, 6, 6]}
+
+        // Flatten a list of lists (e.g., List<List<Integer>>) into a single list using flatMap().
+        // Input : [[1,2,3,4],[5,6,7,8,9]]
+        System.out.println(Arrays.asList(Arrays.asList(1,2,3,4), Arrays.asList(5,6,7,8,9)).stream().flatMap(f -> f.stream()).toList());
+        // Output : [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+         //Get a distinct list of characters from a list of strings.
+        // Input : ["java","stream","api"]
+        System.out.println(Stream.of("java","stream","api").flatMap(s -> s.chars().mapToObj(x -> (char) x)).toList());
+        // Output : [j, a, v, a, s, t, r, e, a, m, a, p, i]
+
+        // Find the second highest number in a list using streams.
+        // Input : [1,2,3,4,5,6,7]
+        System.out.println(Arrays.asList(1,2,3,4,5,6,7).stream().distinct().sorted(Comparator.reverseOrder()).skip(1).findFirst().orElse(0));
+        // Output : 6
+
+        //Given a list of employee objects, find the one with the highest salary.
+
+        System.out.println(Arrays.asList(new Person(1,23,"Vishal",23000.23),new Person(2,23,"Akash",343444.123))
+                .stream()
+                .max(Comparator.comparing(x -> x.getSal())).get().toString()
+        );
+        //Output : name := Akash
+        //Age := 23
+        //Salary := 343444.123
+
+        // Convert a list of objects into a Map with key = ID and value = name.
+        System.out.println(Arrays.asList(new Person(1,23,"Vishal",23000.23),new Person(2,23,"Akash",343444.123))
+                .stream().collect(Collectors.toMap(x -> x.getId(),y -> y.getName()))
+        );
+        // Output : {1=Vishal, 2=Akash}
+
+
+        //Count the number of occurrences of each character in a string using streams.
+        // Input : "Java Stream API"
+        Map<Character,Integer> newMap = Stream.of("Java Stream Api".toLowerCase().split(" ")).flatMap(x -> x.chars().mapToObj(ch -> (char)ch)).collect(Collectors.toMap(x -> x,y -> 1,Integer::sum,LinkedHashMap::new));
+        System.out.println(newMap);
+        // {J=1, a=3, v=1, S=1, t=1, r=1, e=1, m=1, A=1, p=1, i=1}
     }
 }
 
 class Person{
     int age ;
     String name;
+    double sal ;
+    int id;
 
-    Person(int age, String name){
+    Person(int id,int age, String name,double sal){
         this.age = age;
         this.name = name;
+        this.sal = sal;
+        this.id = id;
     }
 
     public String getName() {
@@ -81,8 +131,20 @@ class Person{
         this.name = name;
     }
 
+    public double getSal() {
+        return sal;
+    }
+
+    public void setSal(double sal) {
+        this.sal = sal;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
-        return this.name+" : "+this.age;
+        return "\nname := "+this.name+"\nAge := "+this.age+"\nSalary := "+this.sal+"\n";
     }
 }
