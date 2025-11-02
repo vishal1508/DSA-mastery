@@ -1,11 +1,11 @@
 package linkedlist;
 
-class Node {
+class DoublyLinkListNode {
   int data;
-  Node prev;
-  Node next;
+DoublyLinkListNode prev;
+DoublyLinkListNode next;
 
-  Node(int data) {
+DoublyLinkListNode(int data) {
     this.data = data;
     this.next = null;
     this.prev = null;
@@ -13,10 +13,10 @@ class Node {
 }
 
 class DoublyList {
-  Node head;
+DoublyLinkListNode head;
 
   public void insertAtBeginning(int data) {
-    Node newData = new Node(data);
+  DoublyLinkListNode newData = new DoublyLinkListNode(data);
     if (head == null) {
       head = newData;
       return;
@@ -29,12 +29,12 @@ class DoublyList {
   }
 
   public void insertAtEnd(int data) {
-    Node newData = new Node(data);
+  DoublyLinkListNode newData = new DoublyLinkListNode(data);
     if (head == null) {
       head = newData;
       return;
     }
-    Node temp = head;
+  DoublyLinkListNode temp = head;
     while (temp.next != null) {
       temp = temp.next;
     }
@@ -43,21 +43,21 @@ class DoublyList {
 
   }
 
-  public void insertAfterNoder(int data, int afterNode) {
-    Node temp = head;
+  public void insertAfterDoublyLinkListNoder(int data, int afterDoublyLinkListNode) {
+  DoublyLinkListNode temp = head;
     boolean isFound = false;
     while (temp != null) {
-      if (afterNode == temp.data) {
+      if (afterDoublyLinkListNode == temp.data) {
         isFound = true;
         break;
       }
       temp = temp.next;
     }
     if (!isFound) {
-      System.out.printf("\n %d this node is not exist so we cant insert!!!", afterNode);
+      System.out.printf("\n %d this DoublyLinkListNode is not exist so we cant insert!!!", afterDoublyLinkListNode);
       return;
     }
-    Node newData = new Node(data);
+  DoublyLinkListNode newData = new DoublyLinkListNode(data);
     newData.next = temp.next;
     temp.next = newData;
     newData.prev = temp;
@@ -68,7 +68,7 @@ class DoublyList {
   }
 
   public void displayDubluyLinkedlist() {
-    Node temp = head;
+  DoublyLinkListNode temp = head;
 
     while (temp != null) {
       System.out.printf("%d ->", temp.data);
@@ -86,7 +86,7 @@ public class DoublyLinkedList {
     d.insertAtEnd(20);
     d.insertAtEnd(30);
     d.insertAtBeginning(10);
-    d.insertAfterNoder(25, 20);
+    d.insertAfterDoublyLinkListNoder(25, 20);
     d.displayDubluyLinkedlist();
   }
 }
