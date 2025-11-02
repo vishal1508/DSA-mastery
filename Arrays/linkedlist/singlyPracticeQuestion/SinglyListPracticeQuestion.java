@@ -1,5 +1,7 @@
 package linkedlist.singlyPracticeQuestion;
 
+import linkedlist.SingleNode;
+
 import java.util.Scanner;
 
 public class SinglyListPracticeQuestion {
@@ -9,9 +11,9 @@ public class SinglyListPracticeQuestion {
             System.out.println("1.Insert At Beginning\n2.insert At End" +
                     "\n3.Delete Data from Linked List" +
                     "\n4.Insert After" +
-                    "\n5.Delete SinglyLinkListNode using Index" +
+                    "\n5.Delete SingleNode using Index" +
                     "\n6.Display Link List" +
-                    "\n7.Count SinglyLinkListNodes" +
+                    "\n7.Count SingleNodes" +
                     "\n8.Search Element" +
                     "\n9.Reverse Linked List"
             );
@@ -41,16 +43,16 @@ public class SinglyListPracticeQuestion {
                     s.insertAfter(inserAfterKey, inserAfterData);
                     break;
                 case 5:
-                    System.out.println("Enter a Numeric positive index to delete that SinglyLinkListNode");
+                    System.out.println("Enter a Numeric positive index to delete that SingleNode");
                     int deleteByIndex = sc.nextInt();
-                    s.deleteSinglyLinkListNodeByIndex(deleteByIndex);
+                    s.deleteSingleNodeByIndex(deleteByIndex);
                     break;
                 case 6:
                     System.out.println("Hello");
                     s.displayLinkedList();
                     break;
                 case 7:
-                    s.countSinglyLinkListNode();
+                    s.countSingleNode();
                     break;
                 case 8:
                     System.out.println("Enter a data(Number) for search element : ");
@@ -67,92 +69,81 @@ public class SinglyListPracticeQuestion {
 
 }
 
-class SinglyLinkListNode {
-    int data;
-    SinglyLinkListNode next;
-
-    SinglyLinkListNode(int data) {
-        this.data = data;
-        this.next = null;
-    }
-
-}
-
 class SignlyLinkedList {
-    SinglyLinkListNode head;
+    SingleNode head;
 
     public void insertAtFirst(int data) {
-        SinglyLinkListNode newSinglyLinkListNode = new SinglyLinkListNode(data);
-        newSinglyLinkListNode.next = head;
-        head = newSinglyLinkListNode;
+        SingleNode newSingleNode = new SingleNode(data);
+        newSingleNode.next = head;
+        head = newSingleNode;
     }
 
     public void insertAtEnd(int data) {
-        SinglyLinkListNode newSinglyLinkListNode = new SinglyLinkListNode(data);
+        SingleNode newSingleNode = new SingleNode(data);
         if (head == null) {
-            head = newSinglyLinkListNode;
+            head = newSingleNode;
             return;
         }
-        SinglyLinkListNode currentSinglyLinkListNode = head;
+        SingleNode currentSingleNode = head;
 
-        while (currentSinglyLinkListNode != null && currentSinglyLinkListNode.next != null) {
-            currentSinglyLinkListNode = currentSinglyLinkListNode.next;
+        while (currentSingleNode != null && currentSingleNode.next != null) {
+            currentSingleNode = currentSingleNode.next;
         }
-        currentSinglyLinkListNode.next = newSinglyLinkListNode;
+        currentSingleNode.next = newSingleNode;
     }
 
     public void deleteByValue(int data) {
         if (head == null) {
-            System.out.println("SinglyLinkListNode not exist to delete");
+            System.out.println("SingleNode not exist to delete");
             return;
         }
-        SinglyLinkListNode currentSinglyLinkListNode = head;
-        while (currentSinglyLinkListNode.next != null && currentSinglyLinkListNode.next.data != data) {
-            currentSinglyLinkListNode = currentSinglyLinkListNode.next;
+        SingleNode currentSingleNode = head;
+        while (currentSingleNode.next != null && currentSingleNode.next.data != data) {
+            currentSingleNode = currentSingleNode.next;
 
         }
-        if (currentSinglyLinkListNode.next == null) {
+        if (currentSingleNode.next == null) {
             return;
         }
-        currentSinglyLinkListNode.next = currentSinglyLinkListNode.next.next;
+        currentSingleNode.next = currentSingleNode.next.next;
     }
 
     public void insertAfter(int key, int data) {
-        SinglyLinkListNode newSinglyLinkListNode = new SinglyLinkListNode(data);
+        SingleNode newSingleNode = new SingleNode(data);
         if (head == null) {
-            head = newSinglyLinkListNode;
+            head = newSingleNode;
             return;
         }
-        SinglyLinkListNode currentSinglyLinkListNode = head;
-        while (currentSinglyLinkListNode.next != null && currentSinglyLinkListNode.data != key) {
-            currentSinglyLinkListNode = currentSinglyLinkListNode.next;
+        SingleNode currentSingleNode = head;
+        while (currentSingleNode.next != null && currentSingleNode.data != key) {
+            currentSingleNode = currentSingleNode.next;
         }
-        if (currentSinglyLinkListNode == null) {
+        if (currentSingleNode == null) {
             System.out.println("Link List is Empty");
             return;
         }
-        System.out.println(currentSinglyLinkListNode.data);
-        newSinglyLinkListNode.next = currentSinglyLinkListNode.next;
-        currentSinglyLinkListNode.next = newSinglyLinkListNode;
+        System.out.println(currentSingleNode.data);
+        newSingleNode.next = currentSingleNode.next;
+        currentSingleNode.next = newSingleNode;
     }
 
-    public void deleteSinglyLinkListNodeByIndex(int index) {
+    public void deleteSingleNodeByIndex(int index) {
         if (head == null) {
             System.out.println("Linked List is Empty");
             return;
         }
-        SinglyLinkListNode currentSinglyLinkListNode = head;
+        SingleNode currentSingleNode = head;
         int i = 0;
-        while (currentSinglyLinkListNode.next != null && i < index - 1) {
-            currentSinglyLinkListNode = currentSinglyLinkListNode.next;
+        while (currentSingleNode.next != null && i < index - 1) {
+            currentSingleNode = currentSingleNode.next;
             i++;
         }
-        System.out.println(currentSinglyLinkListNode.data);
+        System.out.println(currentSingleNode.data);
 
     }
 
     public void displayLinkedList() {
-        SinglyLinkListNode current = head;
+        SingleNode current = head;
         while (current != null) {
             System.out.print(current.data + " -> ");
             current = current.next;
@@ -160,14 +151,14 @@ class SignlyLinkedList {
         System.out.println("null");
     }
 
-    public void countSinglyLinkListNode() {
-        SinglyLinkListNode currentSinglyLinkListNode = head;
+    public void countSingleNode() {
+        SingleNode currentSingleNode = head;
         int count = 0;
-        while (currentSinglyLinkListNode != null) {
-            currentSinglyLinkListNode = currentSinglyLinkListNode.next;
+        while (currentSingleNode != null) {
+            currentSingleNode = currentSingleNode.next;
             count++;
         }
-        System.out.println("Total SinglyLinkListNode of Linked List is : " + count);
+        System.out.println("Total SingleNode of Linked List is : " + count);
     }
 
     public void searchElementInList(int data) {
@@ -176,25 +167,25 @@ class SignlyLinkedList {
             return;
         }
 
-        SinglyLinkListNode currentSinglyLinkListNode = head;
-        while (currentSinglyLinkListNode != null && currentSinglyLinkListNode.data != data) {
-            currentSinglyLinkListNode = currentSinglyLinkListNode.next;
+        SingleNode currentSingleNode = head;
+        while (currentSingleNode != null && currentSingleNode.data != data) {
+            currentSingleNode = currentSingleNode.next;
         }
-        if (currentSinglyLinkListNode == null) {
+        if (currentSingleNode == null) {
             System.out.println("Search is not Found");
             return;
         }
-        System.out.println("Search is Found :" + currentSinglyLinkListNode.data);
+        System.out.println("Search is Found :" + currentSingleNode.data);
     }
 
     public void reverseLinkedList() {
-        SinglyLinkListNode prev = null;
-        SinglyLinkListNode next = null;
+        SingleNode prev = null;
+        SingleNode next = null;
         if (head == null) {
             System.out.println("List is Empty");
             return;
         }
-//        SinglyLinkListNode current = head;
+//        SingleNode current = head;
 //        while (current != null) {
 //            next = current.next;
 //            current.next = prev;
@@ -204,7 +195,7 @@ class SignlyLinkedList {
         head = recursiveReverseLinkeList(head,prev,next);
 
     }
-    public SinglyLinkListNode recursiveReverseLinkeList(SinglyLinkListNode currentNode,SinglyLinkListNode prev, SinglyLinkListNode next){
+    public SingleNode recursiveReverseLinkeList(SingleNode currentNode,SingleNode prev, SingleNode next){
         if(currentNode != null){
             next = currentNode.next;
             currentNode.next = prev;

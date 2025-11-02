@@ -1,43 +1,34 @@
 package linkedlist;
 
-class Node {
-  int data;
-  Node next;
-
-  Node(int data) {
-    this.data = data;
-    this.next = null;
-  }
-}
 
 class LinkedList {
-  private Node head;
+  private SingleNode head;
 
-  public void insertNode(int data) {
-    Node newNode = new Node(data);
+  public void insertSingleNode(int data) {
+    SingleNode newSingleNode = new SingleNode(data);
 
     if (head == null) {
-      head = newNode;
+      head = newSingleNode;
       return;
     }
-    Node temp = head;
+    SingleNode temp = head;
     while (temp.next != null) {
       temp = temp.next;
     }
-    temp.next = newNode;
+    temp.next = newSingleNode;
   }
 
   public void insertBegining(int data) {
-    Node newNode = new Node(data); // create a node
+    SingleNode newSingleNode = new SingleNode(data); // create a SingleNode
 
-    newNode.next = head; // assign rfrence header to a newNode next this newNode create at beginning
+    newSingleNode.next = head; // assign rfrence header to a newSingleNode next this newSingleNode create at beginning
 
-    head = newNode; // here now head pointing to newNode
+    head = newSingleNode; // here now head pointing to newSingleNode
 
   }
 
   public void displayList() {
-    Node temp = head;
+    SingleNode temp = head;
     if (temp == null) {
       System.out.println("List is empty");
       return;
@@ -50,13 +41,13 @@ class LinkedList {
   }
 
   public void insertAfter(int newData, int targetData) {
-    Node temp = head;
+    SingleNode temp = head;
     boolean isFound = false;
     while (temp != null) {
       if (temp.data == targetData) {
-        Node newNode = new Node(newData);
-        newNode.next = temp.next;
-        temp.next = newNode;
+        SingleNode newSingleNode = new SingleNode(newData);
+        newSingleNode.next = temp.next;
+        temp.next = newSingleNode;
         isFound = true;
         return;
       }
@@ -76,8 +67,8 @@ class LinkedList {
       head = head.next;
       return;
     }
-    Node prev = head;
-    Node temp = head.next;
+    SingleNode prev = head;
+    SingleNode temp = head.next;
     while (temp != null && temp.data != data) {
       prev = temp;
       temp = temp.next;
@@ -94,9 +85,9 @@ class LinkedList {
 public class SinglyLinkedList {
   public static void main(String[] args) {
     LinkedList s = new LinkedList();
-    s.insertNode(10);
-    // s.insertNode(20);
-    // s.insertNode(30);
+    s.insertSingleNode(10);
+    // s.insertSingleNode(20);
+    // s.insertSingleNode(30);
     // s.insertAfter(25, 0);
     s.displayList();
     s.deleteLinkedList(10);
