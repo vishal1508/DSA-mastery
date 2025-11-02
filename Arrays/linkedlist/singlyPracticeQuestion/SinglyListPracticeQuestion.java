@@ -194,14 +194,24 @@ class SignlyLinkedList {
             System.out.println("List is Empty");
             return;
         }
-        SinglyLinkListNode current = head;
-        while (current != null) {
-            next = current.next;
-            current.next = prev;
-            prev = current;
-            current = next;
-        }
-        head = prev;
+//        SinglyLinkListNode current = head;
+//        while (current != null) {
+//            next = current.next;
+//            current.next = prev;
+//            prev = current;
+//            current = next;
+//        }
+        head = recursiveReverseLinkeList(head,prev,next);
 
+    }
+    public SinglyLinkListNode recursiveReverseLinkeList(SinglyLinkListNode currentNode,SinglyLinkListNode prev, SinglyLinkListNode next){
+        if(currentNode != null){
+            next = currentNode.next;
+            currentNode.next = prev;
+            prev = currentNode;
+            currentNode =next;
+            return recursiveReverseLinkeList(currentNode,prev,next);
+        }
+        return prev;
     }
 }
